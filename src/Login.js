@@ -31,24 +31,14 @@ class Login extends Component {
 	}
 
 
-	/*callHome = () => {
+	callHome = () => {
 		this.setState({
 			redirect: true
 		});
-	};*/
+	};
 
 
-	handleSubmit(e) {
-		e.preventDefault();
-		axios.post('/getToken', {
-		email: this.state.email,
-		password: this.state.password
-		}).then(res => localStorage.setItem('cool-jwt', res.data));
-	}
-
-
-
-
+	
 	render() {
 		/*if (this.state.redirect) {
 			return <Redirect to="/" />;
@@ -95,7 +85,7 @@ class Login extends Component {
 								</Form.Row>
 								<Form.Row> 
 									<div className="btnLogin">
-										<Button type="submit" className="" /*onClick={() => this.callHome()}*/>
+										<Button type="submit" className="" onClick={() => this.callHome()}>
 											{' '}
 											Cadastrar{' '}
 										</Button>
