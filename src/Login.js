@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-//import { Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import './Login.css';
 import { Form, Container, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
-//import Auth from './Auth';
 
 class Login extends Component {
 	constructor(props){
@@ -14,7 +13,6 @@ class Login extends Component {
 			password: '',
 			redirect: false
 		};
-
 	}
 	
 	onChange(e) {
@@ -23,30 +21,42 @@ class Login extends Component {
 		});
 	}
 
-
 	onSubmit(e) {
-		this.setState({
-			[e.target.submit]: e.target.value
-		});
-	}
+		e.preventDefault();
+		this.callHome();
+	  }
 
+	 callHome = async () => {
+    console.log("estou no callHome");
+    const token = await axios.post(
+        "http://localhost:3001/api/login",
+        {
+          email: this.state.email,
+          password: this.state.password
+        },
+        { "Content-Type": "application/json" }
+	  )
+	  
+      .then(res => {
+		  //console.log(res);
+		//console.log(res.config.data);
+		console.log(res.data.token);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
-	callHome = () => {
-		this.setState({
-			redirect: true
-		});
-	};
+    //console.log(token);
+  };
 
-
-	
 	render() {
-		/*if (this.state.redirect) {
+		if (this.state.redirect) {
 			return <Redirect to="/" />;
-		} else {*/
+		} else {
 			return (
 				<div className="lastForm">
 					<div className="formLogin">
-						<Form onSubmit={this.onSubmit.bind(this)}>
+					<Form onSubmit={this.onSubmit.bind(this)}>
 							<h1>Login</h1>
 							<Container>
 								<Form.Row>									
@@ -85,10 +95,7 @@ class Login extends Component {
 								</Form.Row>
 								<Form.Row> 
 									<div className="btnLogin">
-										<Button type="submit" className="" onClick={() => this.callHome()}>
-											{' '}
-											Cadastrar{' '}
-										</Button>
+									<Button type="submit" className="" >Entrar</Button>
 									</div>
 								</Form.Row>
 							
@@ -99,6 +106,7 @@ class Login extends Component {
 			);
 		}
 	}
+}
 
 
 export default Login;
