@@ -38,10 +38,12 @@ handleSubmit = async (event) => {
     event.preventDefault();
    const arrInsert = {
     nome: this.state.nome,
-    apelido: this.state.apelido
+	apelido: this.state.apelido,
+	email: this.state.email,
+	password:this.state.password
     };
     const token = await localStorage.getItem('token');
-	const res = await axios.post("http://localhost:3001/api/employees", arrInsert, { headers: { Authorization: `Bearer ${token}` } });
+	const res = await axios.post("http://localhost:3001/api/employees", arrInsert, { headers: { "Authorization": `Bearer ${token}` } });
 	console.log(res.data);
 }
 
