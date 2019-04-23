@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import './Cadastro.css';
 import { Form, Container, Col, Button } from 'react-bootstrap';
-//import { callLogin } from './services/api';
 import axios from 'axios';
+
+
+
+
 
 class Cadastro extends Component {
 	constructor(args) {
@@ -12,7 +15,9 @@ class Cadastro extends Component {
 			id_pesoa:'',
 			nome: '',
 			apelido: '',
-      redirect: false
+			email: '',
+			password: '',
+			redirect: false
 		};
 	} 
 
@@ -28,23 +33,19 @@ class Cadastro extends Component {
 			});
 		};
 	
-		handleSubmit = event => {
-			event.preventDefault();
-		
-			const arrInsert = {
-			  nome: this.state.nome,
-			  apelido: this.state.apelido
-			};
-		
-			axios.post("http://localhost:3000/api/employees", arrInsert)
-			  .then(res => {
-				console.log(res);
-				console.log(res.data);
-			  }) 	
-		  
-		  }
+	 
+handleSubmit = async (event) => {
+    event.preventDefault();
+   const arrInsert = {
+    nome: this.state.nome,
+    apelido: this.state.apelido
+    };
+    const token = await localStorage.getItem('token');
+	const res = await axios.post("http://localhost:3001/api/employees", arrInsert, { headers: { Authorization: `Bearer ${token}` } });
+	console.log(res.data);
+}
 
-render() {
+	render() {
 		if (this.state.redirect) {
 		return <Redirect to="./login" />;
 		} else {
@@ -86,7 +87,41 @@ render() {
 											</Form.Group>
 										</Col>
 									</div>
-<div className="btnCad">
+
+								<Form.Row>
+									<div className="email">
+										<Col>
+											<Form.Group as={Col}>
+												<Form.Label htmlFor="email"> E-mail </Form.Label>
+												<Form.Control
+													value={this.state.email}
+													onChange={this.onChange.bind(this)}
+													name="email"
+													id="email"
+													type="email"
+												/>
+											</Form.Group>
+										</Col>										
+									</div>
+
+								
+									<div className="password">
+										<Col>
+											<Form.Group as={Col} >
+												<Form.Label htmlFor="password"> Senha </Form.Label>
+												<Form.Control
+													value={this.state.password}
+													onChange={this.onChange.bind(this)}
+													name="password"
+													id="password"
+													type="password"
+												/>
+											</Form.Group>
+										</Col>
+									</div>
+								</Form.Row>  
+ 
+									<div className="btnCad">
 										<Col>
 											<Button type="submit" value="Enviar dados" onClick={e => {
 												this.handleSubmit(e)
@@ -104,3 +139,4 @@ render() {
 	}
 }
 export default Cadastro;
+
