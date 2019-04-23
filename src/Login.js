@@ -4,6 +4,7 @@ import './Login.css';
 import { Form, Container, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 
+
 class Login extends Component {
 	constructor(props){
 		super(props);
@@ -26,28 +27,19 @@ class Login extends Component {
 		this.callHome();
 	  }
 
-	 callHome = async () => {
-    console.log("estou no callHome");
-    const token = await axios.post(
-        "http://localhost:3001/api/login",
-        {
-          email: this.state.email,
-          password: this.state.password
-        },
-        { "Content-Type": "application/json" }
-	  )
-	  
-      .then(res => {
-		  //console.log(res);
-		//console.log(res.config.data);
-		console.log(res.data.token);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    //console.log(token);
-  };
+	  callHome = async () => {
+        try {
+          console.log("estou no callHome");
+          const { email, password } = this.state
+          const response = await axios.post("http://localhost:3001/api/login", {
+            email,
+            password
+		  })
+          localStorage.setItem('token', response.data.token)
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
 	render() {
 		if (this.state.redirect) {
@@ -110,3 +102,4 @@ class Login extends Component {
 
 
 export default Login;
+
