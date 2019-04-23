@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import './Login.css';
 import { Form, Container, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
@@ -22,33 +21,32 @@ class Login extends Component {
 		});
 	}
 
-	onSubmit(e) {
+	onSubmit = e => {
 		e.preventDefault();
 		this.callHome();
 	  }
+	 
 
 	  callHome = async () => {
         try {
           console.log("estou no callHome");
-          const { email, password } = this.state
+		  const { email, password } = this.state 
           const response = await axios.post("http://localhost:3001/api/login", {
             email,
             password
 		  })
-          localStorage.setItem('token', response.data.token)
+		  localStorage.setItem('token', response.data.token)
+		  this.props.history.push('/')
         } catch (err) {
           console.log(err);
-        }
+		}
       };
-
+	 
 	render() {
-		if (this.state.redirect) {
-			return <Redirect to="/" />;
-		} else {
 			return (
 				<div className="lastForm">
 					<div className="formLogin">
-					<Form onSubmit={this.onSubmit.bind(this)}>
+					<Form onSubmit={e => this.onSubmit(e)}>
 							<h1>Login</h1>
 							<Container>
 								<Form.Row>									
@@ -87,7 +85,8 @@ class Login extends Component {
 								</Form.Row>
 								<Form.Row> 
 									<div className="btnLogin">
-									<Button type="submit" className="" >Entrar</Button>
+									<Button id="buttonLogin"
+									type="submit" className="" >Entrar</Button>
 									</div>
 								</Form.Row>
 							
@@ -98,8 +97,9 @@ class Login extends Component {
 			);
 		}
 	}
-}
+
 
 
 export default Login;
+
 
