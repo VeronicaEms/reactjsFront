@@ -14,7 +14,7 @@ class Home extends Component {
 
 		homeUpdate = () =>
 		{
-			this.props.history.push('/update/id_pessoa')
+			this.props.history.push('/update/')
 		}
 
 
