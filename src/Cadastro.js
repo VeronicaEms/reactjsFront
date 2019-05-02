@@ -141,4 +141,3 @@ handleSubmit = async (event) => {
 	}
 }
 export default Cadastro;
-
