@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import './Cadastro.css';
 import { Form, Container, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 
 class Update extends Component {
-    constructor(args) {
-        super(args);
+    constructor(props) {
+        super(props);
         this.state = {
             id_pessoa:'',
             nome: '',
@@ -21,6 +20,13 @@ class Update extends Component {
             [e.target.name]: e.target.value
         });
     }
+
+    componentDidMount() {
+        const {id_pessoa} = this.props.match.params;
+        this.setState({
+            id_pessoa: id_pessoa
+        });
+    }; 
 
     
  handleUpdate = async event => {
@@ -51,20 +57,7 @@ class Update extends Component {
           };
 
 	
-      /*  handleUpdate = async (event) => {
-            event.preventDefault();
-        try {
-           const response = await axios.put("http://localhost:3001/api/employees", this.state, { headers: "application/json"});
-            console.log(response.data);
-        } catch (err) {
-                console.log(err);
-              }
-        }*/
-
           render() {
-            if (this.state.redirect) {
-            return <Redirect to="/" />;
-            } else {
                 return (
                     <div className="lastForm">
                         <div className="formCad" >
@@ -135,6 +128,6 @@ class Update extends Component {
                 );
             }
           }
-        }
+        
         export default Update;
 
