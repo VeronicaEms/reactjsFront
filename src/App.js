@@ -5,6 +5,7 @@ import Cadastro from './Cadastro';
 import Contact from './Contact';
 import Login from './Login';
 import Navbar from './BarraNav';
+import Update from './Update';
 
 
 
@@ -18,6 +19,7 @@ class App extends Component {
           <Route path="/cadastro" component={Cadastro}/>
           <Route path="/contact" component={Contact}/>
           <Route path="/login" component={Login}/>
+          <Route path="/update/:id_pessoa" component={Update}/>
           </div>
         </Router>
     );
