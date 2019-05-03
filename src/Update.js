@@ -20,41 +20,34 @@ class Update extends Component {
             [e.target.name]: e.target.value
         });
     }
+    
 
-    componentDidMount() {
-        const {id_pessoa} = this.props.match.params;
-        this.setState({
-            id_pessoa: id_pessoa
-        });
-    }; 
+    async componentDidMount() {
+        const { id_pessoa } = this.props.match.params;
+        await this.setState({ id_pessoa });
+        const res = await axios.get(`http://192.168.1.65:3001/api/employees/${id_pessoa}`)
+        console.log(res); 
+      };
 
     
- handleUpdate = async event => {
-            event.preventDefault();
-            try {
-              const { id_pessoa, nome, apelido, email } = this.state;
-              await axios
-                .put(
-                  "http://localhost:3001/api/employees",
-                  {
-                    id_pessoa,
-                    nome,
-                    apelido,
-                    email
-                  },
-                  "application/json"
-                )
-                .then(data => {
-                  console.log("> ATUALIZAÇÃO REALIZADA");
-                  return true;
-                })
-                .catch(err => {
-                  return false;
-                });
-            } catch (err) {
-              console.log(err);
-            }
-          };
+    handleUpdate = async event => {
+        event.preventDefault();
+        try {
+          const { id_pessoa, nome, apelido, email } = this.state;
+          await axios
+            .put("http://localhost:3001/api/employees", {
+              id_pessoa,
+              nome,
+              apelido,
+              email
+            })
+          console.log("> ATUALIZAÇÃO REALIZADA");
+          return true;
+        } catch (err) {
+          console.log(err);
+          return false;
+        }
+      };
 
 	
           render() {
@@ -130,4 +123,3 @@ class Update extends Component {
           }
         
         export default Update;
-
