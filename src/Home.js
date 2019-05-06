@@ -17,18 +17,27 @@ class Home extends Component {
             this.props.history.push(`/update/${id_pessoa}`)
         }
 
-        homeRemove = async (id_pessoa) => {
-        await axios.delete("http://localhost:3001/api/employees", {
-        id_pessoa,
-        })
-          console.log(">USUÁRIO REMOVIDO");
-        }
+        homeRemove = async id_pessoa => {
+          console.log(">>> HOMEREMOVE()", id_pessoa);
+          await axios
+            .delete(`http://localhost:3001/api/employees/${id_pessoa}`)
+            .then(res => {
+              if (res.data.affectedRows === 1) {
+                console.log(">USUÁRIO REMOVIDO", res.data.affectedRows);
+                //this.getAllData();
+              }
+            });
+        };
 
-       async componentDidMount(){
-            const releases  = await axios.get('http://localhost:3001/api/employees')
-            console.log(releases);
-            this.setState({releases: releases.data});
-            }   
+        getAllData = async () => {
+          const res = await axios.get("http://localhost:3001/api/employees");
+          console.log(res.data);
+          this.setState({ release: res.data });
+        };
+      
+        componentDidMount() {
+          this.getAllData();
+        }
     
 
     render() {
