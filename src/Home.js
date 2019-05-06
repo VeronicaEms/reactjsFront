@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
-import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { Button, Table } from 'react-bootstrap';
 
 
 class Home extends Component {
@@ -14,11 +14,17 @@ class Home extends Component {
 				
         homeUpdate = (id_pessoa) =>
         {
-						this.props.history.push(`/update/${id_pessoa}`)
+            this.props.history.push(`/update/${id_pessoa}`)
         }
 
+        homeRemove = async (id_pessoa) => {
+        await axios.delete("http://localhost:3001/api/employees", {
+        id_pessoa,
+        })
+          console.log(">USUÁRIO REMOVIDO");
+        }
 
-        async componentDidMount(){
+       async componentDidMount(){
             const releases  = await axios.get('http://localhost:3001/api/employees')
             console.log(releases);
             this.setState({releases: releases.data});
@@ -49,7 +55,10 @@ class Home extends Component {
                 <td><Button type="button" className="btn btn-primary"
                 onClick={() =>this.homeUpdate(release.ID_PESSOA)}
                 >Editar</Button></td>
-                <td><Button type="button" className="btn btn-danger">Excluir</Button></td>
+
+                <td><Button type="button" className="btn btn-danger"
+                onClick={() => this.homeRemove(release.ID_PESSOA)}
+                >Excluir</Button></td>
 						</tr>
               )
             })}
