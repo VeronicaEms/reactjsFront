@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import './Home.css';
 import axios from 'axios';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, FormControl, Form } from 'react-bootstrap';
 
 
 class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
-            releases : []
+            listEmployee : [],
+            search: ''
             }
-				}
-				
+        }        
+
+       onChange = e => {
+          this.setState({
+            search: e.target.value
+          })}
+
+
         homeUpdate = (id_pessoa) =>
         {
             this.props.history.push(`/update/${id_pessoa}`)
@@ -22,9 +29,10 @@ class Home extends Component {
           await axios
             .delete(`http://localhost:3001/api/employees/${id_pessoa}`)
             .then(res => {
+              this.componentDidMount();
               if (res.data.affectedRows === 1) {
-                console.log(">USUÁRIO REMOVIDO", res.data.affectedRows);
-                //this.getAllData();
+              console.log(">USUÁRIO REMOVIDO", res.data.affectedRows);
+              //this.getAllData();
               }
             });
         };
@@ -32,7 +40,7 @@ class Home extends Component {
         getAllData = async () => {
           const res = await axios.get("http://localhost:3001/api/employees");
           console.log(res.data);
-          this.setState({ release: res.data });
+          this.setState({ listEmployee: res.data });
         };
       
         componentDidMount() {
@@ -40,21 +48,32 @@ class Home extends Component {
         }
     
 
+        searchAll = async () => {
+          const res = await axios.get("http://localhost:3001/api/employees", { params: { email: this.state.search } });
+          console.log(res.data);
+        }
+
     render() {
         return (
-            <Table striped bordered hover variant="dark">
+            <Table table-bordered striped bordered hover variant="dark">
             <thead>
              <tr>
                 <th>Id</th>
                 <th>Nome</th>
                 <th>Apelido</th>
                 <th>Email</th>
-                <th></th>
+                <th>
+                  <Form inline>
+                  <FormControl type="text" className=""
+                  id="filter" value={this.state.search}/>
+                  <Button variant="outline-info" onClick={this.searchAll()}>Procurar</Button>
+                  </Form>
+                </th>
 
              </tr>
             </thead>
             <tbody>
-                {this.state.releases.map((release, index) => {
+                {this.state.listEmployee.map((release, index) => {
              return (
             <tr key={index}>
                  <th>{release.ID_PESSOA}</th> 
