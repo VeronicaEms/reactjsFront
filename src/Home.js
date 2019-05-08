@@ -32,7 +32,6 @@ class Home extends Component {
               this.componentDidMount();
               if (res.data.affectedRows === 1) {
               console.log(">USUÁRIO REMOVIDO", res.data.affectedRows);
-              //this.getAllData();
               }
             });
         };
@@ -55,7 +54,7 @@ class Home extends Component {
 
     render() {
         return (
-            <Table table-bordered striped bordered hover variant="dark">
+            <Table striped bordered hover variant="dark">
             <thead>
              <tr>
                 <th>Id</th>
@@ -64,9 +63,9 @@ class Home extends Component {
                 <th>Email</th>
                 <th>
                   <Form inline>
-                  <FormControl type="text" className=""
-                  id="filter" value={this.state.search}/>
-                  <Button variant="outline-info" onClick={this.searchAll()}>Procurar</Button>
+                  <FormControl type="email" className=""
+                  id="filter" value={this.state.search} onChange={e => this.setState({ search: e.target.value })}/>
+                  <Button variant="outline-info" onClick={this.searchAll}>Procurar</Button>
                   </Form>
                 </th>
 
@@ -97,3 +96,5 @@ class Home extends Component {
 }
 
 export default Home;
+
+
