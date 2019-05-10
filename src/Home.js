@@ -43,14 +43,17 @@ class Home extends Component {
         };
       
         componentDidMount() {
-          this.getAllData();
+          this.getAllData()
         }
     
 
-        searchAll = async () => {
-          const res = await axios.get("http://localhost:3001/api/employees", { params: { email: this.state.search } });
-          console.log(res.data);
-        }
+        searchEmail = async () => {
+          console.log("", this.state.search);
+          const res = await axios.get(
+            `http://localhost:3001/api/employees/search/${this.state.search}`
+          );
+          this.setState({ listEmployee: res.data });
+        };
 
     render() {
         return (
@@ -63,9 +66,9 @@ class Home extends Component {
                 <th>Email</th>
                 <th>
                   <Form inline>
-                  <FormControl type="email" className=""
-                  id="filter" value={this.state.search} onChange={e => this.setState({ search: e.target.value })}/>
-                  <Button variant="outline-info" onClick={this.searchAll}>Procurar</Button>
+                  <FormControl type="text" className=""
+                  id="filter" value={this.state.search} onChange={this.onChange.bind(this)} />
+                  <Button variant="outline-info" onClick={this.searchEmail}>Procurar</Button>                
                   </Form>
                 </th>
 
@@ -96,5 +99,6 @@ class Home extends Component {
 }
 
 export default Home;
+
 
 
