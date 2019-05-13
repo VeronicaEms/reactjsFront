@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import './Cadastro.css';
-import { Form, Container, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
-
-
-
-
+import './Cadastro.css';
 
 class Cadastro extends Component {
 	constructor(args) {
@@ -52,89 +47,54 @@ handleSubmit = async (event) => {
 		return <Redirect to="./login" />;
 		} else {
 			return (
-				<div className="lastForm">
-					<div className="formCad" >
-						<Form>
-							<h1>Cadastro</h1>
-							<Container>
-							
+				<div className="card text-white bg-dark mb-3">
+					<div className="card-header"> Cadastro </div>
+						<div className="card-body">
+								<form>
+								<div className="form-group row">
+									<label for="nome" className="col-sm-3 col-form-label"> Nome </label>
+									<div className="col-sm-8">
+									<input type="text" className="form-control" id="nome" value={this.state.nome}
+									onChange={this.onChange.bind(this)}/>
+									</div>
+								</div>
 
-									<div className="nome">
-										<Col>
-											<Form.Group as={Col}>
-												<Form.Label htmlFor="nome"> Nome </Form.Label>
-												<Form.Control
-													value={this.state.nome}
-													onChange={this.onChange.bind(this)}
-													name="nome"
-													id="nome"
-													type="text"										
-												/>
-											</Form.Group>
-										</Col>	
-									</div>							
-									
-								
-									<div className="apelido">
-										<Col>
-											<Form.Group as={Col}>
-												<Form.Label htmlFor="apelido"> Apelido </Form.Label>
-												<Form.Control
-													value={this.state.apelido}
-													onChange={this.onChange.bind(this)}
-													name="apelido"
-													id="apelido"
-													type="text"
-												/>
-											</Form.Group>
-										</Col>
+								<div className="form-group row">
+									<label for="apelido" className="col-sm-3 col-form-label"> Apelido </label>
+									<div className="col-sm-8">
+									<input type="text" className="form-control" id="apelido" value={this.state.apelido}
+									onChange={this.onChange.bind(this)}/>
 									</div>
+								</div>
 
-								<Form.Row>
-									<div className="email">
-										<Col>
-											<Form.Group as={Col}>
-												<Form.Label htmlFor="email"> E-mail </Form.Label>
-												<Form.Control
-													value={this.state.email}
-													onChange={this.onChange.bind(this)}
-													name="email"
-													id="email"
-													type="email"
-												/>
-											</Form.Group>
-										</Col>										
+								<div className="form-group row">
+									<label for="email" className="col-sm-3 col-form-label"> Email </label>
+									<div className="col-sm-8">
+									<input type="email" className="form-control" id="email" value={this.state.email}
+									onChange={this.onChange.bind(this)}/>
 									</div>
+								</div>
 
-								
-									<div className="password">
-										<Col>
-											<Form.Group as={Col} >
-												<Form.Label htmlFor="password"> Senha </Form.Label>
-												<Form.Control
-													value={this.state.password}
-													onChange={this.onChange.bind(this)}
-													name="password"
-													id="password"
-													type="password"
-												/>
-											</Form.Group>
-										</Col>
+								<div class="form-group row">
+									<label for="password" className="col-sm-3 col-form-label"> Senha </label>
+									<div className="col-sm-8">
+									<input type="password" className="form-control" id="password" value={this.state.password}
+									onChange={this.onChange.bind(this)}/>
 									</div>
-								</Form.Row>  
- 
-									<div className="btnCad">
-										<Col>
-											<Button type="submit" value="Enviar dados" onClick={e => {
-												this.handleSubmit(e)
-												this.callLogin()
-											}}>Cadastrar</Button>
-										</Col>
-									</div>
-								
-							</Container>
-						</Form>
-					</div>
+								</div> 
+
+								<div className="form-group row">
+    								<div>
+      									<button type="submit" className="btn btn-primary"
+										onClick={e =>
+										{ this.handleSubmit(e)
+										 this.callLogin()}}
+										>Cadastrar</button>
+    								</div>
+ 								</div>
+
+						</form>
+				    </div>
 				</div>
 			);
 		}
