@@ -7,8 +7,6 @@ import Login from './Login';
 import Navbar from './BarraNav';
 import Update from './Update';
 
-
-
 class App extends Component {
   render() {
     return (
