@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './Login.css';
-import { Form, Container, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
+import './Login.css';
 
 
 class Login extends Component {
@@ -36,7 +35,8 @@ class Login extends Component {
             password
 		  })
 		  localStorage.setItem('token', response.data.token)
-		  this.props.history.push('/')
+		  console.log(response.data);
+		  //this.props.history.push('/')
         } catch (err) {
           console.log(err);
 		}
@@ -44,56 +44,36 @@ class Login extends Component {
 	 
 	render() {
 			return (
-				<div className="lastForm">
-					<div className="formLogin">
-					<Form onSubmit={e => this.onSubmit(e)}>
-							<h1>Login</h1>
-							<Container>
-								<Form.Row>									
-									<Col>
-									<div className="col-sm-12">
-										<Form.Group as={Col}>
-											<Form.Label htmlFor="email"> E-mail </Form.Label>
-											<Form.Control
-												value={this.state.email}
-												onChange={this.onChange.bind(this)}
-												name="email"
-												id="email"
-												type="email"
-											/>
-										</Form.Group>
-									</div>
+				<div className="card text-white bg-dark mb-3">
+					<div className="card-header"> Login </div>
+						<div className="card-body">
+								<form onSubmit={e => this.onSubmit(e)}>
 
-									</Col>
-								</Form.Row>						
-									<br />		
-								<Form.Row>							
-									<Col>									
-									<div className="col-sm-12">
-										<Form.Group as={Col}>
-											<Form.Label htmlFor="password"> Senha </Form.Label>
-											<Form.Control
-												value={this.state.password}
-												onChange={this.onChange.bind(this)}
-												name="password"
-												id="password"
-												type="password"
-											/>
-										</Form.Group>
+								<div className="form-group row">
+									<label for="email" className="col-sm-3 col-form-label"> Email </label>
+									<div className="col-sm-8">
+									<input type="email" className="form-control" id="email" value={this.state.email}
+									onChange={this.onChange.bind(this)}/>
 									</div>
-									</Col>
-								</Form.Row>
-								<Form.Row> 
-									<div className="btnLogin">
-									<Button id="buttonLogin"
-									type="submit" className="" >Entrar</Button>
+								</div>
+
+								<div className="form-group row">
+									<label for="password" className="col-sm-3 col-form-label"> Senha </label>
+									<div className="col-sm-8">
+									<input type="password" className="form-control" id="password" value={this.state.password}
+									onChange={this.onChange.bind(this)}/>
 									</div>
-								</Form.Row>
-							
-							</Container>
-						</Form>
-					</div>
-				</div>				
+								</div> 
+
+								<div className="form-group row">
+    								<div>
+      									<button type="submit" className="btn btn-primary">Login</button>
+    								</div>
+ 								</div>
+
+						</form>
+				    </div>
+				</div>
 			);
 		}
 	}
@@ -101,4 +81,3 @@ class Login extends Component {
 
 
 export default Login;
-
