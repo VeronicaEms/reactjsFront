@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './Home.css';
 import axios from 'axios';
-import { Button, Table, FormControl, Form } from 'react-bootstrap';
+import './Home.css';
 
 
 class Home extends Component {
@@ -57,43 +56,36 @@ class Home extends Component {
 
     render() {
         return (
-            <Table striped bordered hover variant="dark">
+            <table className="table table-hover table-dark">
             <thead>
              <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Apelido</th>
-                <th>Email</th>
-                <th>
-                  <Form inline>
-                  <FormControl type="text" className=""
-                  id="filter" value={this.state.search} onChange={this.onChange.bind(this)} />
-                  <Button variant="outline-info" onClick={this.searchEmail}>Procurar</Button>                
-                  </Form>
-                </th>
-
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Apelido</th>
+                <th scope="col">Email</th>
+                <th scope="col">editar </th>
+                <th scope="col">excluir  </th>
              </tr>
             </thead>
             <tbody>
                 {this.state.listEmployee.map((release, index) => {
-             return (
+            return (
             <tr key={index}>
-                 <th>{release.ID_PESSOA}</th> 
+                 <td className="text-center" scope="row">{release.ID_PESSOA}</td> 
                 <td>{release.NOME}</td>
                 <td>{release.APELIDO}</td>
                 <td>{release.EMAIL}</td>
-                <td><Button type="button" className="btn btn-primary"
+                <td><button className="btn btn-primary" type="button"
                 onClick={() =>this.homeUpdate(release.ID_PESSOA)}
-                >Editar</Button></td>
-
-                <td><Button type="button" className="btn btn-danger"
+                >Editar</button></td>
+                <td><button className="btn btn-danger" type="button"
                 onClick={() => this.homeRemove(release.ID_PESSOA)}
-                >Excluir</Button></td>
+                >Excluir</button></td>
 						</tr>
-              )
+            );
             })}
             </tbody>
-          </Table>
+          </table>
         );
 		}
 }
