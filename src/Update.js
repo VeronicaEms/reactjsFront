@@ -1,125 +1,110 @@
-import React, { Component } from 'react';
-import './Cadastro.css';
-import { Form, Container, Col, Button } from 'react-bootstrap';
-import axios from 'axios';
-
+import React, { Component } from "react";
+import { Redirect } from "react-router";
+import axios from "axios";
 
 class Update extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            id_pessoa:'',
-            nome: '',
-            apelido: '',
-            email: '',
-            redirect: false
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      id_pessoa: '',
+      nome: '',
+      apelido: '',
+      email: '',
+      redirect: false
+    };
+  }
+
+  onChange(e) {
+		this.setState({
+		  [e.target.id]: e.target.value
+	  })}
+
+  async componentDidMount() {
+    const { id_pessoa } = this.props.match.params;
+    await this.setState({ id_pessoa });
+    const res = await axios.get(
+      `http://localhost:3001/api/employees/${id_pessoa}`
+    );
+    console.log(res);
+  }
+
+  handleUpdate = async event => {
+    event.preventDefault();
+    try {
+      const { id_pessoa, nome, apelido, email } = this.state;
+      await axios.put("http://localhost:3001/api/employees", {
+        id_pessoa,
+        nome,
+        apelido,
+        email
+      });
+      console.log("> ATUALIZAÇÃO REALIZADA");
+      this.setState({ redirect: true });
+      return true;
+    } catch (err) {
+      console.log(err);
+      this.setState({ redirect: false });
+      return false;
     }
-    onChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+  };
+
+  render() {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    } else {
+      return (
+        <div className="card text-white bg-dark mb-3">
+        <div className="card-header"> Editar </div>
+          <div className="card-body">
+              <form>
+              <div className="form-group row">
+                <label for="nome" className="col-sm-3 col-form-label"> Nome </label>
+                <div className="col-sm-8">
+                <input type="text" className="form-control" id="nome" value={this.state.nome}
+               onChange={ e => this.onChange(e) }/>
+                </div>
+              </div>
+
+              <div className="form-group row">
+                <label for="apelido" className="col-sm-3 col-form-label"> Apelido </label>
+                <div className="col-sm-8">
+                <input type="text" className="form-control" id="apelido" value={this.state.apelido}
+                onChange={ e => this.onChange(e) }/>
+                </div>
+              </div>
+
+              <div className="form-group row">
+                <label for="email" className="col-sm-3 col-form-label"> Email </label>
+                <div className="col-sm-8">
+                <input type="email" className="form-control" id="email" value={this.state.email}
+               onChange={ e => this.onChange(e) }/>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="password" className="col-sm-3 col-form-label"> Senha </label>
+                <div className="col-sm-8">
+                <input type="password" className="form-control" id="password" value={this.state.password}
+                onChange={ e => this.onChange(e) }/>
+                </div>
+              </div> 
+
+              
+								<div className="form-group row">
+    								<div>
+      									<button type="submit" className="btn btn-primary"
+                    onClick={e => {this.handleUpdate(e);}}
+										>Salvar</button>
+    								</div>
+ 								</div>
+
+               	</form>
+				    </div>
+				</div>
+
+      );
     }
-    
+  }
+}
 
-    async componentDidMount() {
-        const { id_pessoa } = this.props.match.params;
-        await this.setState({ id_pessoa });
-        const res = await axios.get(`http://192.168.1.65:3001/api/employees/${id_pessoa}`)
-        console.log(res); 
-      };
-
-    
-    handleUpdate = async event => {
-        event.preventDefault();
-        try {
-          const { id_pessoa, nome, apelido, email } = this.state;
-          await axios
-            .put("http://localhost:3001/api/employees", {
-              id_pessoa,
-              nome,
-              apelido,
-              email
-            })
-          console.log("> ATUALIZAÇÃO REALIZADA");
-          return true;
-        } catch (err) {
-          console.log(err);
-          return false;
-        }
-      };
-
-	
-          render() {
-                return (
-                    <div className="lastForm">
-                        <div className="formCad" >
-                            <Form>
-                                <h1>Editar</h1>
-                                <Container>
-                                
-        
-                                        <div className="nome">
-                                            <Col>
-                                                <Form.Group as={Col}>
-                                                    <Form.Label htmlFor="nome"> Nome </Form.Label>
-                                                    <Form.Control
-                                                        value={this.state.nome}
-                                                        onChange={this.onChange.bind(this)}
-                                                        name="nome"
-                                                        id="nome"
-                                                        type="text"										
-                                                    />
-                                                </Form.Group>
-                                            </Col>	
-                                        </div>							
-                                        
-                                    
-                                        <div className="apelido">
-                                            <Col>
-                                                <Form.Group as={Col}>
-                                                    <Form.Label htmlFor="apelido"> Apelido </Form.Label>
-                                                    <Form.Control
-                                                        value={this.state.apelido}
-                                                        onChange={this.onChange.bind(this)}
-                                                        name="apelido"
-                                                        id="apelido"
-                                                        type="text"
-                                                    />
-                                                </Form.Group>
-                                            </Col>
-                                        </div>
-        
-                                    <Form.Row>
-                                        <div className="email">
-                                            <Col>
-                                                <Form.Group as={Col}>
-                                                    <Form.Label htmlFor="email"> E-mail </Form.Label>
-                                                    <Form.Control
-                                                        value={this.state.email}
-                                                        onChange={this.onChange.bind(this)}
-                                                        name="email"
-                                                        id="email"
-                                                        type="email"
-                                                    />
-                                                </Form.Group>
-                                            </Col>										
-                                        </div>
-                                        </Form.Row>  
-         
-                                        <div className="btnCad">
-                                                <Col>
-                                                    <Button type="submit" value="Enviar dados"
-                                                    onClick={e => { this.handleUpdate(e)}}>Salvar</Button>
-                                                </Col>
-                                         </div>
-        
-                                </Container>
-                            </Form>
-                        </div>
-                    </div>
-                );
-            }
-          }
-        
-        export default Update;
+export default Update;
