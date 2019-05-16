@@ -1,0 +1,28 @@
+body {
+    background-image: url(https://nataliebarbosaadv.com.br/wp-content/uploads/2018/01/ws_Stripped_black_1280x1024.jpg);
+  }
+  
+.card {
+    max-width: 25rem;
+    margin: 6rem 0;
+    margin-left: 30rem;
+    }
+    
+.card-header {
+    font-size: 2rem;
+    text-align: center;
+    }
+    
+.btn {
+    margin-top: 1rem;
+    margin-left: 11rem;	
+    } 
+
+textarea {
+    max-width: 13rem;
+    height: 10rem;
+    }
+    
+.input-group {
+    margin-left: 6rem;
+    }
