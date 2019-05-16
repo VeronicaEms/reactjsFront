@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './Login.css';
+import './css/Login.css';
 
 
 class Login extends Component {
@@ -16,9 +16,8 @@ class Login extends Component {
 	
 	onChange(e) {
 		this.setState({
-			[e.target.name]: e.target.value
-		});
-	}
+		  [e.target.id]: e.target.value
+	  })}
 
 	onSubmit = e => {
 		e.preventDefault();
@@ -36,7 +35,7 @@ class Login extends Component {
 		  })
 		  localStorage.setItem('token', response.data.token)
 		  console.log(response.data);
-		  //this.props.history.push('/')
+		  this.props.history.push('/')
         } catch (err) {
           console.log(err);
 		}
@@ -48,26 +47,26 @@ class Login extends Component {
 					<div className="card-header"> Login </div>
 						<div className="card-body">
 								<form onSubmit={e => this.onSubmit(e)}>
-
 								<div className="form-group row">
-									<label for="email" className="col-sm-3 col-form-label"> Email </label>
+									<label htmlFor="email" className="col-sm-3 col-form-label"> Email </label>
 									<div className="col-sm-8">
 									<input type="email" className="form-control" id="email" value={this.state.email}
-									onChange={this.onChange.bind(this)}/>
+									onChange={ e => this.onChange(e) }/>
 									</div>
 								</div>
 
 								<div className="form-group row">
-									<label for="password" className="col-sm-3 col-form-label"> Senha </label>
+									<label htmlFor="password" className="col-sm-3 col-form-label"> Senha </label>
 									<div className="col-sm-8">
 									<input type="password" className="form-control" id="password" value={this.state.password}
-									onChange={this.onChange.bind(this)}/>
+									onChange={ e => this.onChange(e) }/>
 									</div>
 								</div> 
 
 								<div className="form-group row">
     								<div>
-      									<button type="submit" className="btn btn-primary">Login</button>
+      									<button type="submit" className="btn btn-primary"
+												>Login</button>
     								</div>
  								</div>
 
