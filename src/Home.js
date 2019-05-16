@@ -146,7 +146,7 @@ class Home extends Component {
               </tr>
             </tfoot>
             </table>
-            <td><Pagination items={this.state.listEmployee} onChangePage={this.onChangePage} /></td>
+            <div><Pagination items={this.state.listEmployee} onChangePage={this.onChangePage} /></div>
           </div>
         </div>
       </div>
