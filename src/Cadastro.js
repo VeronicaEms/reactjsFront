@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import axios from 'axios';
-import './css/Cadastro.css';
+import './css/Global.css';
 
 class Cadastro extends Component {
 	constructor(args) {
