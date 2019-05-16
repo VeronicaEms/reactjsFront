@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const propTypes = {
     items: PropTypes.array.isRequired,
     onChangePage: PropTypes.func.isRequired,
@@ -113,10 +114,9 @@ class Pagination extends React.Component {
         }
 
         return (
- 
-             <ul className="pagination">
+             <ul className="pagination" >
                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <button className="page-link" onClick={() => this.setPage(pager.currentPage - 1)}>Previous</button>
+                    <button className="page-link" onClick={() => this.setPage(pager.currentPage - 1)}>Voltar</button>
                 </li>
                 {pager.pages.map((page, index) =>
                     <li key={index} className={pager.currentPage === page ? 'active' : ''}>
@@ -124,7 +124,7 @@ class Pagination extends React.Component {
                     </li>
                 )}
                 <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <button className="page-link" onClick={() => this.setPage(pager.currentPage + 1)}>Next</button>
+                    <button className="page-link" onClick={() => this.setPage(pager.currentPage + 1)}>Próximo</button>
                 </li>
             </ul>
 
