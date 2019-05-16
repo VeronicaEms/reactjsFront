@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Pagination from './Pagination.js';
 import "bootstrap/dist/css/bootstrap.css";
-import './css/Home.css';
+import './css/Global.css';
 
 class Home extends Component {
   constructor(props) {
