@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import axios from 'axios';
-import './Cadastro.css';
+import './css/Cadastro.css';
 
 class Cadastro extends Component {
 	constructor(args) {
@@ -18,9 +18,8 @@ class Cadastro extends Component {
 
 	onChange(e) {
 		this.setState({
-			[e.target.name]: e.target.value
-		});
-	}
+		  [e.target.id]: e.target.value
+	  })}
 
 		callLogin = () => {
 			this.setState({
@@ -52,34 +51,34 @@ handleSubmit = async (event) => {
 						<div className="card-body">
 								<form>
 								<div className="form-group row">
-									<label for="nome" className="col-sm-3 col-form-label"> Nome </label>
+									<label htmlFor="nome" className="col-sm-3 col-form-label"> Nome </label>
 									<div className="col-sm-8">
 									<input type="text" className="form-control" id="nome" value={this.state.nome}
-									onChange={this.onChange.bind(this)}/>
+									onChange={ e => this.onChange(e) }/>
 									</div>
 								</div>
 
 								<div className="form-group row">
-									<label for="apelido" className="col-sm-3 col-form-label"> Apelido </label>
+									<label htmlFor="apelido" className="col-sm-3 col-form-label"> Apelido </label>
 									<div className="col-sm-8">
 									<input type="text" className="form-control" id="apelido" value={this.state.apelido}
-									onChange={this.onChange.bind(this)}/>
+									onChange={ e => this.onChange(e) }/>
 									</div>
 								</div>
 
 								<div className="form-group row">
-									<label for="email" className="col-sm-3 col-form-label"> Email </label>
+									<label htmlFor="email" className="col-sm-3 col-form-label"> Email </label>
 									<div className="col-sm-8">
 									<input type="email" className="form-control" id="email" value={this.state.email}
-									onChange={this.onChange.bind(this)}/>
+									onChange={ e => this.onChange(e) }/>
 									</div>
 								</div>
 
-								<div class="form-group row">
-									<label for="password" className="col-sm-3 col-form-label"> Senha </label>
+								<div className="form-group row">
+									<label htmlFor="password" className="col-sm-3 col-form-label"> Senha </label>
 									<div className="col-sm-8">
 									<input type="password" className="form-control" id="password" value={this.state.password}
-									onChange={this.onChange.bind(this)}/>
+									onChange={ e => this.onChange(e) }/>
 									</div>
 								</div> 
 
