@@ -7,19 +7,18 @@ import './css/Global.css';
 class Home extends Component {
   constructor(props) {
     super(props);
-    const listEmployee = []/* [...Array(3).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) })) */;
     this.state = {
       listEmployee,
       filteredEmployee: [],
       search: "",
     };
-   this.onChangePage = this.onChangePage.bind(this);    
+ 
   }
 
-  onChangePage(items) {
+  onChangePage = items => {
   //Atualiza o state com uma nova pÃ¡gina de itens
-    this.setState({ filteredEmployee: items
-     })};
+    this.setState({ filteredEmployee: items })
+  };
  
 
   onChange = e => {
@@ -146,7 +145,7 @@ class Home extends Component {
               </tr>
             </tfoot>
             </table>
-            <div><Pagination items={this.state.listEmployee} onChangePage={this.onChangePage} /></div>
+            <div><Pagination items={this.state.listEmployee} onChangePage={(items) => this.onChangePage(items} /></div>
           </div>
         </div>
       </div>
