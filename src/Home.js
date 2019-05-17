@@ -22,6 +22,13 @@ class Home extends Component {
  
 
   onChange = e => {
+    const input = e.currentTarget.value;
+    const { listEmployee } = this.state;
+    const filteredListEmployee = listEmployee.filter(
+      listEmployee =>
+        listEmployee.toLowerCase().indexOf(input.toLowerCase()) > -1
+    );
+    
     this.setState({
       search: e.target.value
     });
