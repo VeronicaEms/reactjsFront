@@ -50,7 +50,7 @@ class Home extends Component {
 
   getAllData = async () => {
     const res = await axios.get("http://localhost:3001/api/employees");
-    console.log(res.data);
+   // console.log(res.data);
     this.setState({ listEmployee: res.data });
   };
 
@@ -76,7 +76,7 @@ class Home extends Component {
             <form onSubmit={e => this.searchEmail(e)}>
               <div className="form-row">
                 <div className="form-group col-sm-12 col-lg-8">
-                <AutoCompleteEmployee employeeList={this.state.listEmployee} />
+                <AutoCompleteEmployee listEmployee={this.state.listEmployee} />
                 {/*  <input
                     className="form-control form-control-sm"
                     type="search"
