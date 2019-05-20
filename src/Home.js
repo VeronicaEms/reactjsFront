@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pagination from './Pagination.js';
+//import Autocomplete from './AutoCompleteEmployee/index.js';
 import "bootstrap/dist/css/bootstrap.css";
 import './css/Global.css';
 
 class Home extends Component {
+
   constructor(props) {
     super(props);
-    const listEmployee = []/* [...Array(3).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) })) */;
+    const listEmployee = [];
     this.state = {
       listEmployee,
       filteredEmployee: [],
-      search: "",
+      search: ""
+
     };
    this.onChangePage = this.onChangePage.bind(this);    
   }
 
-  onChangePage(items) {
-  //Atualiza o state com uma nova pÃ¡gina de itens
+
+   onChangePage(items) {
+  //Atualiza o state com uma nova página de itens
     this.setState({ filteredEmployee: items
      })};
- 
+  
 
   onChange = e => {
     this.setState({
@@ -39,7 +43,7 @@ class Home extends Component {
       .then(res => {
         this.componentDidMount();
         if (res.data.affectedRows === 1) {
-          console.log(">USUÃRIO REMOVIDO", res.data.affectedRows);
+          console.log(">USUÁRIO REMOVIDO", res.data.affectedRows);
         }
       });
   };
@@ -55,7 +59,7 @@ class Home extends Component {
   }
 
   searchEmail = async e => {
-    e.preventDefault(); // Previnir o reload da pÃ¡gina
+    e.preventDefault(); // Previnir o reload da página
 
     console.log("", this.state.search);
     const res = await axios.get(
@@ -72,14 +76,17 @@ class Home extends Component {
             <form onSubmit={e => this.searchEmail(e)}>
               <div className="form-row">
                 <div className="form-group col-sm-12 col-lg-8">
-                  <input
-                    className="form-control form-control-sm"
+
+                  <Autocomplete
+                  suggestions={this.state.listEmployee}
+          
+                  /*   className="form-control form-control-sm"
                     type="search"
                     id="search"
                     value={this.state.search}
                     onChange={e => this.onChange(e)}
                     placeholder="Procurar"
-                    aria-label="Procurar"
+                    aria-label="Procurar" */
                   />
                 </div>
                 <div className="form-group col-sm-12 col-lg-4">
