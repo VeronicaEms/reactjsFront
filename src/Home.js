@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Pagination from './Pagination.js';
-//import Autocomplete from './AutoCompleteEmployee/index.js';
+import AutoCompleteEmployee from './AutoCompleteEmployee';
 import "bootstrap/dist/css/bootstrap.css";
 import './css/Global.css';
 
@@ -76,15 +76,16 @@ class Home extends Component {
             <form onSubmit={e => this.searchEmail(e)}>
               <div className="form-row">
                 <div className="form-group col-sm-12 col-lg-8">
-                  <input
+                <AutoCompleteEmployee employeeList={this.state.filteredEmployee} />
+                {/*  <input
                     className="form-control form-control-sm"
                     type="search"
                     id="search"
                     value={this.state.search}
                     onChange={e => this.onChange(e)}
                     placeholder="Procurar"
-                    aria-label="Procurar"
-                  />
+                    aria-label="Procurar" 
+                  /> */}
                 </div>
                 <div className="form-group col-sm-12 col-lg-4">
                   <button
@@ -146,7 +147,6 @@ class Home extends Component {
               </tbody>
              <tfoot>
               <tr>
-               {/*  <td><Pagination items={this.state.listEmployee} onChangePage={this.onChangePage} /></td> */}
               </tr>
             </tfoot>
             </table>
