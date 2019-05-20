@@ -76,17 +76,14 @@ class Home extends Component {
             <form onSubmit={e => this.searchEmail(e)}>
               <div className="form-row">
                 <div className="form-group col-sm-12 col-lg-8">
-
-                  <Autocomplete
-                  suggestions={this.state.listEmployee}
-          
-                  /*   className="form-control form-control-sm"
+                  <input
+                    className="form-control form-control-sm"
                     type="search"
                     id="search"
                     value={this.state.search}
                     onChange={e => this.onChange(e)}
                     placeholder="Procurar"
-                    aria-label="Procurar" */
+                    aria-label="Procurar"
                   />
                 </div>
                 <div className="form-group col-sm-12 col-lg-4">
